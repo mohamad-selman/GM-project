@@ -12,8 +12,8 @@ datasource db {
 }
 
 model Country {
-  id         Int     @id @default(autoincrement())
-  name       String? @unique
+  id         Int    @id @default(autoincrement())
+  name       String @unique
   capital    String?
   region     String?
   population Int?

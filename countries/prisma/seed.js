@@ -1,36 +1,41 @@
-import fetch from 'node-fetch';
-import { PrismaClient } from '@prisma/client';
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args))
+const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
 const load = async () => {
-    try {
-        const res = await fetch('https://restcountries.com/v3.1/all')
-        const countries = await res.json()
+  const res = await fetch('https://restcountries.com/v3.1/all')
+  const countries = await res.json()
 
-        await prisma.country.deleteMany()
+  const data = []
 
-        countries.map(
-            async (country) => {
-                await prisma.country.create({
-                    data: {
-                        name: country.name.official,
-                        capital: country.capital[0],
-                        region: country.region,
-                        population: country.population,
-                        language: Object.values(country.languages)[0],
-                        flag: country.flags.svg,
-                        map: country.maps.googleMaps
-                    }
-                })
-            }
-        )
-    } catch (e) {
-        console.error(e);
-        process.exit(1);
-    } finally {
-        await prisma.$disconnect();
+  countries.map(
+    (country) => {
+      data.push({
+        name: country.name.official,
+        capital: country.capital?.[0],
+        region: country.region,
+        population: country.population,
+        language: country.languages ? Object.values(country.languages)[0] : undefined,
+        map: country.maps.googleMaps,
+        flag: country.flags.svg,
+      })
     }
+  )
+
+  await prisma.country.deleteMany({})
+
+  await prisma.country.createMany({
+    data: data
+  })
 }
 
 load()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
