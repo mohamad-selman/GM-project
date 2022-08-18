@@ -9,6 +9,7 @@ const load = async () => {
 
   const data = []
 
+  // Separated this step to prevent connection timeout
   countries.map(
     (country) => {
       data.push({
@@ -23,7 +24,11 @@ const load = async () => {
     }
   )
 
+  data.sort((a, b) => a.name.localeCompare(b.name))
+
   await prisma.country.deleteMany({})
+
+  await prisma.$queryRaw`ALTER TABLE Country AUTO_INCREMENT = 1`
 
   await prisma.country.createMany({
     data: data
