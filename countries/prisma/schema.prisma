@@ -18,5 +18,6 @@ model Country {
   region     String?
   population Int?
   language   String?
+  flag       String?
   map        String?
 }
