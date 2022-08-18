@@ -14,7 +14,7 @@ const load = async () => {
                 await prisma.country.create({
                     data: {
                         name: country.name.official,
-                        capital: country.capital,
+                        capital: country.capital[0],
                         region: country.region,
                         population: country.population,
                         language: Object.values(country.languages)[0],
