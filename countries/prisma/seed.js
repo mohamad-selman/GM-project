@@ -5,11 +5,12 @@ const prisma = new PrismaClient()
 
 const load = async () => {
     try {
-        const countries = await fetch('https://restcountries.com/v3.1/all')
+        const res = await fetch('https://restcountries.com/v3.1/all')
+        const countries = await res.json()
 
         await prisma.country.deleteMany()
 
-        countries.data.map(
+        countries.map(
             async (country) => {
                 await prisma.country.create({
                     data: {
