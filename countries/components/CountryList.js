@@ -2,14 +2,7 @@ import { useState, useEffect } from "react"
 import Country from "./Country"
 import Pagination from '../components/Pagination'
 
-const filteredCountries = (countries, searchText) => {
-  return countries.filter((country) => {
-    country.name.toLowerCase().indexOf(searchText.toLowerCase()) != -1
-  })
-}
-
 const CountryList = ({ countries, searchText }) => {
-  const defaultStep = 10
   const [listData, setListData] = useState(countries)
 
   useEffect(() => {
@@ -38,3 +31,9 @@ const CountryList = ({ countries, searchText }) => {
 }
 
 export default CountryList
+
+const filteredCountries = (countries, searchText) => {
+  return countries.filter((item) => 
+    item.name.toLowerCase().indexOf(searchText.toLowerCase()) != -1
+  )
+}
