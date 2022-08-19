@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react"
-import Country from "./Country"
-import LoadMore from './LoadMore'
+import { useState, useEffect } from 'react';
+import Country from './Country';
+import LoadMore from './LoadMore';
 
 const CountryList = ({ countries, searchText }) => {
   const defaultStep = 10
