@@ -10,8 +10,8 @@ const Search = ({ onSearch }) => {
       </div>
       <input
         className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-[#1A1A1A] dark:border-zinc-800 dark:placeholder-gray-400 dark:text-white"
-        placeholder="Search ..."
         onChange={searchHandler}
+        placeholder="Search ..."
       />
     </div>
   )
