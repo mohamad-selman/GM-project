@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import { PrismaClient } from '@prisma/client'
-import CountryList from '../components/CountryList'
 import Search from '../components/Search'
+import CountryList from '../components/CountryList'
 
 const Home = ({ countries }) => {
   const [searchText, setSearchText] = useState("");
