@@ -1,17 +1,18 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args))
-const { PrismaClient } = require('@prisma/client')
+import fetch from 'node-fetch'
+import { PrismaClient } from '@prisma/client'
+import { Country, CountryResObj } from '../types'
 
 const prisma = new PrismaClient()
 
 const load = async () => {
   const res = await fetch('https://restcountries.com/v3.1/all')
-  const countries = await res.json()
+  const results = await res.json() as CountryResObj[]
 
-  const data = []
+  const data: Country[] = []
 
   // Separated this step to prevent connection timeout
-  countries.map(
-    (country) => {
+  results.map(
+    (country: CountryResObj) => {
       data.push({
         name: country.name.official,
         capital: country.capital?.[0],

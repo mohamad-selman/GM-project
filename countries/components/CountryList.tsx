@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import Country from './Country';
-import LoadMore from './LoadMore';
+import { useState, useEffect } from 'react'
+import CountryCard from './CountryCard'
+import LoadMore from './LoadMore'
+import { Country, CountryListProps } from '../types'
 
-const CountryList = ({ countries, searchText }) => {
+const CountryList = ({ countries, searchText }: CountryListProps) => {
   const defaultStep = 10
   const [listData, setListData] = useState(countries)
   const [toItem, setToItem] = useState(defaultStep)
@@ -16,14 +17,14 @@ const CountryList = ({ countries, searchText }) => {
     <>
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid:6">
         {listData.slice(0, toItem).map((country, idx) => (
-          <Country
+          <CountryCard
             key={idx}
             name={country.name}
             flag={country.flag}
-            capital={country.capital || "N/A"}
-            region={country.region || "N/A"}
-            population={country.population || "N/A"}
-            language={country.language || "N/A"}
+            capital={country.capital}
+            region={country.region}
+            population={country.population}
+            language={country.language}
             map={country.map}
           />
         ))}
@@ -39,8 +40,8 @@ const CountryList = ({ countries, searchText }) => {
 
 export default CountryList
 
-const filteredCountries = (countries, searchText) => {
-  return countries.filter((country) => (
+const filteredCountries = (countries: Country[], searchText: string) => {
+  return countries.filter((country: Country) => (
     country.name.toLowerCase().indexOf(searchText.toLowerCase()) != -1
   ))
 }

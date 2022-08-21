@@ -1,4 +1,6 @@
-const LoadMore = ({ listDataLength, to, setTo }) => {
+import { LoadMoreProps } from '../types'
+
+const LoadMore = ({ listDataLength, to, setTo }: LoadMoreProps) => {
   const defaultStep = 10
 
   return (

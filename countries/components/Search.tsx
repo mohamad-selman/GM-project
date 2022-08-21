@@ -1,5 +1,7 @@
-const Search = ({ onSearch }) => {
-  const searchHandler = (e) => {
+import { SearchProps } from '../types'
+
+const Search = ({ onSearch }: SearchProps) => {
+  const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onSearch(e.target.value)
   }
 

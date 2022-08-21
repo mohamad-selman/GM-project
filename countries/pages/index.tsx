@@ -1,10 +1,13 @@
-import Head from 'next/head';
-import { useState } from 'react';
-import { PrismaClient } from '@prisma/client';
-import Search from '../components/Search';
-import CountryList from '../components/CountryList';
+import type { NextPage } from 'next'
+import { GetStaticProps } from 'next'
+import Head from 'next/head'
+import { useState } from 'react'
+import { PrismaClient } from '@prisma/client'
+import Search from '../components/Search'
+import CountryList from '../components/CountryList'
+import { HomeProps } from '../types'
 
-const Home = ({ countries }) => {
+const Home: NextPage<HomeProps> = ({ countries }) => {
   const [searchText, setSearchText] = useState("");
 
   return (
@@ -25,7 +28,7 @@ const Home = ({ countries }) => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const prisma = new PrismaClient()
   const data = await prisma.country.findMany()
 
