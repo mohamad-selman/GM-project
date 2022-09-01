@@ -1,13 +1,12 @@
-import fetch from 'node-fetch'
+import axios from 'axios'
 import { PrismaClient } from '@prisma/client'
 import { Country, CountryResObj } from '../types'
 
 const prisma = new PrismaClient()
 
 const load = async () => {
-  const res = await fetch('https://restcountries.com/v3.1/all')
-  const results = await res.json() as CountryResObj[]
-
+  const response = await axios.get('https://restcountries.com/v3.1/all')
+  const results = response.data
   const data: Country[] = []
 
   // Separated this step to prevent connection timeout
