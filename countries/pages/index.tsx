@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../lib/prisma'
 import Search from '../components/Search'
 import CountryList from '../components/CountryList'
 import { HomeProps } from '../types'
@@ -29,7 +29,6 @@ const Home: NextPage<HomeProps> = ({ countries }) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prisma = new PrismaClient()
   const data = await prisma.country.findMany()
 
   return {
