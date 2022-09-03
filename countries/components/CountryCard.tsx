@@ -1,6 +1,6 @@
-import { CountryCardProps } from '../types'
+import { Country } from '@prisma/client'
 
-const CountryCard = ({ name, flag, capital, region, population, language, map }: CountryCardProps) => {
+const CountryCard = ({ name, flag, capital, region, population, language, map }: Omit<Country, 'id'>) => {
   return (
     <div className="block my-3 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-[#1A1A1A] dark:border-zinc-800">
       <div className="flex justify-center">
@@ -33,11 +33,14 @@ const CountryCard = ({ name, flag, capital, region, population, language, map }:
         </li>
       </ul>
 
-      <a href={map}>
-        <p className="mt-3 font-medium text-center text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400">
-          Map
-        </p>
-      </a>
+      {map && (
+        <a href={map}>
+          <p className="mt-3 font-medium text-center text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400">
+            Map
+          </p>
+        </a>
+      )}
+      
     </div>
   )
 }

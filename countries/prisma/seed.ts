@@ -1,25 +1,25 @@
 import axios from 'axios'
 import { PrismaClient } from '@prisma/client'
-import { Country, CountryResObj } from '../types'
+import { Country } from '@prisma/client'
+import { CountryResObj } from '../types'
 
 const prisma = new PrismaClient()
 
 const load = async () => {
   const response = await axios.get('https://restcountries.com/v3.1/all')
-  const results = response.data
-  const data: Country[] = []
+  const data: Omit<Country, 'id'>[] = []
 
   // Separated this step to prevent connection timeout
-  results.map(
+  response.data.map(
     (country: CountryResObj) => {
       data.push({
         name: country.name.official,
-        capital: country.capital?.[0],
+        capital: country.capital?.[0] || null,
         region: country.region,
         population: country.population,
-        language: country.languages ? Object.values(country.languages)[0] : undefined,
+        language: country.languages ? Object.values(country.languages)[0] : null,
         map: country.maps.googleMaps,
-        flag: country.flags.svg,
+        flag: country.flags.svg || null,
       })
     }
   )

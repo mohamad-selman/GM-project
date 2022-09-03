@@ -2,6 +2,7 @@
  * This file contains the root router of your tRPC-backend
  */
 import { createRouter } from '../createRouter'
+import { countryRouter } from './country'
 import superjson from 'superjson'
 
 /**
@@ -16,22 +17,16 @@ export const appRouter = createRouter()
    * @link https://trpc.io/docs/data-transformers
    */
   .transformer(superjson)
+
   /**
    * Optionally do custom error (type safe!) formatting
    * @link https://trpc.io/docs/error-formatting
    */
   // .formatError(({ shape, error }) => { })
+
   /**
-   * Add a health check endpoint to be called with `/api/trpc/healthz`
+   * Merge `countryRouter` under `infiniteCountries`
    */
-  .query('healthz', {
-    async resolve() {
-      return 'yay!'
-    },
-  })
-  /**
-   * Merge `postRouter` under `post.`
-   */
-  // .merge('post.', postRouter)
+  .merge('infiniteCountries', countryRouter)
 
 export type AppRouter = typeof appRouter
