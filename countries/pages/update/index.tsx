@@ -86,7 +86,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			</Box>
 			<Box sx={{ textAlign: 'center' }}>
 				<LoadingButton disabled={!hasNextPage || isFetchingNextPage} loading={isLoading} onClick={handleLoading}>
-					Loading
+					Load More
 				</LoadingButton>
 			</Box>
 		</Container>
