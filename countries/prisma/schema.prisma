@@ -1,25 +1,21 @@
 // The Prisma schema file
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity", "fullTextSearch", "fullTextIndex"]
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+    provider = "sqlite"
+    url      = "file:./dev.db"
 }
 
 model Country {
-  id         Int    @id @default(autoincrement())
-  name       String @unique
-  capital    String?
-  region     String?
-  population Int?
-  language   String?
-  flag       String?
-  map        String?
-
-  @@fulltext([name])
+    id         Int     @id @default(autoincrement())
+    name       String  @unique
+    capital    String?
+    region     String?
+    population Int?
+    language   String?
+    flag       String?
+    map        String?
 }
