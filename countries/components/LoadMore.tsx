@@ -1,3 +1,5 @@
+import { CardActions, Button } from '@mui/material'
+
 interface Props {
   fetchNextPage: any
   hasNextPage: boolean | undefined
@@ -6,9 +8,9 @@ interface Props {
 
 const LoadMore = ({ fetchNextPage, hasNextPage, isFetchingNextPage }: Props) => {
   return (
-    <div className="py-8 flex justify-center">
-      <button
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+    <CardActions sx={{ justifyContent: 'center', marginTop: '25px' }}>
+      <Button
+        variant='contained'
         onClick={() => fetchNextPage()}
         disabled={!hasNextPage || isFetchingNextPage}
       >
@@ -17,8 +19,8 @@ const LoadMore = ({ fetchNextPage, hasNextPage, isFetchingNextPage }: Props) => 
           : hasNextPage
             ? 'Load More'
             : 'Nothing more to load'}
-      </button>
-    </div>
+      </Button>
+      </CardActions>
   )
 }
 

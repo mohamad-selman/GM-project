@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
-import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 import { Fragment } from 'react'
 import Search from '../components/Search'
 import CountryCard from '../components/CountryCard'
@@ -9,6 +9,7 @@ import { findCountries } from '../server/findCountries'
 import { trpc } from '../utils/trpc'
 import { Country } from '@prisma/client'
 import { useForm } from 'react-hook-form'
+import { Grid, Box, Typography, Container } from '@mui/material'
 
 interface Props {
   initialData: {
@@ -44,44 +45,50 @@ const Home: NextPage<Props> = ({ initialData }) => {
     },
   )
 
-  // const AllData = data?.pages.map((i) => i.items).flat()
-
   return (
-    <>
+    <Container sx={{ py: 4 }} maxWidth='xl'>
       <Head>
         <title>Countries</title>
       </Head>
+
+      <Typography sx={{textAlign: 'center'}} variant='h4' fontWeight='fontWeightMedium'>
+        Countries
+      </Typography>
 
       <Search
         register={register}
         handleSubmit={handleSubmit}
       />
 
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid:6">
-        {data?.pages.map((page) => (
-          <Fragment key={page.nextCursor}>
-            {page.items.map((country, idx) => (
-              <CountryCard
-                key={idx}
-                name={country.name}
-                flag={country.flag}
-                capital={country.capital}
-                region={country.region}
-                population={country.population}
-                language={country.language}
-                map={country.map}
-              />
-            ))}
-          </Fragment>
-        ))}
-      </div>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          {data?.pages.map((page) => (
+            <Fragment key={page.nextCursor}>
+              {page.items.map((country, idx) => (
+                <Grid key={idx} item xs={12} sm={6} md={4} lg={3}>
+                  <CountryCard
+                    key={idx}
+                    name={country.name}
+                    flag={country.flag}
+                    capital={country.capital}
+                    region={country.region}
+                    population={country.population}
+                    language={country.language}
+                    map={country.map}
+                  />
+                </Grid>
+              ))}
+            </Fragment>
+          ))}
+        </Grid>
+      </Box>
 
       <LoadMore
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
       />
-    </>
+    </Container>
   )
 }
 

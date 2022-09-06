@@ -1,47 +1,62 @@
+import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material'
 import { Country } from '@prisma/client'
 
 const CountryCard = ({ name, flag, capital, region, population, language, map }: Omit<Country, 'id'>) => {
   return (
-    <div className="block my-3 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-[#1A1A1A] dark:border-zinc-800">
-      <div className="flex justify-center">
-        {flag && <img
-          src={flag}
-          alt={name + " flag"}
-          className="h-12"
-        />}
+    <Card sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <div>
+        {flag && (
+          <CardMedia
+            component='img'
+            height='170px'
+            image={flag}
+            alt={name + ' flag'}
+          />
+        )}
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant='h5'
+            component='div'
+          >
+            {name}
+          </Typography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+          >
+            <strong>Capital:</strong> {capital || 'N/A'}
+          </Typography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+          >
+            <strong>Region:</strong> {region || 'N/A'}
+          </Typography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+          >
+            <strong>Population:</strong> {population || 'N/A'}
+          </Typography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+          >
+            <strong>Language:</strong> {language || 'N/A'}
+          </Typography>
+        </CardContent>
       </div>
-
-      <h5 className="mt-4 mb-4 text-center text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        {name}
-      </h5>
-
-      <ul className="font-medium text-gray-900 dark:text-white">
-        <li>
-          Capital: <span className="text-gray-700 dark:text-gray-400">{capital || "N/A"}</span>
-        </li>
-
-        <li>
-          Region: <span className="text-gray-700 dark:text-gray-400">{region || "N/A"}</span>
-        </li>
-
-        <li>
-          Population: <span className="text-gray-700 dark:text-gray-400">{population}</span>
-        </li>
-
-        <li>
-          Language: <span className="text-gray-700 dark:text-gray-400">{language || "N/A"}</span>
-        </li>
-      </ul>
-
-      {map && (
-        <a href={map}>
-          <p className="mt-3 font-medium text-center text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400">
+      <CardActions sx={{ justifyContent: 'center' }}>
+        {map && (
+          <Button
+            href={map}
+          >
             Map
-          </p>
-        </a>
-      )}
-      
-    </div>
+          </Button>
+        )}
+      </CardActions>
+    </Card>
   )
 }
 

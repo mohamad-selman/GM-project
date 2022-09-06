@@ -1,16 +1,36 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Layout from '../components/Layout'
+import Head from 'next/head'
 import { withTRPC } from '@trpc/next'
 import { AppType } from 'next/dist/shared/lib/utils'
 import { AppRouter } from '../server/routers/_app'
 import superjson from 'superjson'
+import { ThemeProvider } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import theme from '../utils/theme'
+import createEmotionCache from '../utils/createEmotionCache'
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const clientSideEmotionCache = createEmotionCache()
+
+interface Props extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+const MyApp = ({
+  Component,
+  pageProps,
+  emotionCache = clientSideEmotionCache
+}: Props) => {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
   )
 }
 
