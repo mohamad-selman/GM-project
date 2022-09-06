@@ -2,15 +2,14 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import { Fragment } from 'react';
-import Search from '../components/Search';
-import CountryCard from '../components/CountryCard';
-import LoadMore from '../components/LoadMore';
-import { findCountries } from '../server/findCountries';
-import { trpc } from '../utils/trpc';
+import Search from '../../components/Search';
+import { findCountries } from '../../server/findCountries';
+import { trpc } from '../../utils/trpc';
 import { Country } from '@prisma/client';
 import { useForm } from 'react-hook-form';
-import { Grid, Box, Typography, Container } from '@mui/material';
-
+import { Grid, Box, Typography, Container, Button } from '@mui/material';
+import { CustomCard } from '../../components/update/CustomCard';
+import LoadingButton from '@mui/lab/LoadingButton';
 interface Props {
 	initialData: {
 		pages: {
@@ -22,7 +21,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ initialData }) => {
 	const { register, watch, handleSubmit } = useForm();
-	const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = trpc.useInfiniteQuery(
+	const { data, isFetchingNextPage, fetchNextPage, isLoading, hasNextPage } = trpc.useInfiniteQuery(
 		[
 			'infiniteCountries',
 			{
@@ -39,7 +38,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			refetchOnMount: false,
 		}
 	);
-
+	const handleLoading = () => fetchNextPage();
 	return (
 		<Container sx={{ py: 4 }} maxWidth="xl">
 			<Head>
@@ -58,24 +57,38 @@ const Home: NextPage<Props> = ({ initialData }) => {
 						<Fragment key={page.nextCursor}>
 							{page.items.map((country, idx) => (
 								<Grid key={idx} item xs={12} sm={6} md={4} lg={3}>
-									<CountryCard
-										key={idx}
-										name={country.name}
-										flag={country.flag}
-										capital={country.capital}
-										region={country.region}
-										population={country.population}
-										language={country.language}
-										map={country.map}
-									/>
+									<CustomCard
+										img={country.flag}
+										alt={country.name}
+										action={<> {country.map && <Button href={country.map}>Map</Button>}</>}
+									>
+										<Typography gutterBottom variant="h5" component="div">
+											{country.name}
+										</Typography>
+										<Typography variant="body2" color="text.secondary">
+											<strong>Capital:</strong> {country.capital || 'N/A'}
+										</Typography>
+										<Typography variant="body2" color="text.secondary">
+											<strong>Region:</strong> {country.region || 'N/A'}
+										</Typography>
+										<Typography variant="body2" color="text.secondary">
+											<strong>Population:</strong> {country.population || 'N/A'}
+										</Typography>
+										<Typography variant="body2" color="text.secondary">
+											<strong>Language:</strong> {country.language || 'N/A'}
+										</Typography>
+									</CustomCard>
 								</Grid>
 							))}
 						</Fragment>
 					))}
 				</Grid>
 			</Box>
-
-			<LoadMore fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} />
+			<Box sx={{ textAlign: 'center' }}>
+				<LoadingButton disabled={!hasNextPage || isFetchingNextPage} loading={isLoading} onClick={handleLoading}>
+					Load More
+				</LoadingButton>
+			</Box>
 		</Container>
 	);
 };
