@@ -6,6 +6,7 @@ specifiers:
   '@emotion/server': ^11.10.0
   '@emotion/styled': ^11.10.4
   '@mui/icons-material': ^5.10.3
+  '@mui/lab': 5.0.0-alpha.97
   '@mui/material': ^5.10.3
   '@prisma/client': ^4.3.0
   '@trpc/client': ^9.27.2
@@ -35,6 +36,7 @@ dependencies:
   '@emotion/server': 11.10.0
   '@emotion/styled': 11.10.4_hs257xuqs5q57pkxvxgqvnn7ie
   '@mui/icons-material': 5.10.3_y3w5kybebkk4omfqm52bdtcctq
+  '@mui/lab': 5.0.0-alpha.97_ejtkogy76axkic3c6ci3kzuscm
   '@mui/material': 5.10.3_pmt7mohamriu6nuiv5xnts3qce
   '@prisma/client': 4.3.1_prisma@4.3.1
   '@trpc/client': 9.27.2_@trpc+server@9.27.2
@@ -563,6 +565,39 @@ packages:
       '@mui/material': 5.10.3_pmt7mohamriu6nuiv5xnts3qce
       '@types/react': 18.0.17
       react: 18.2.0
+    dev: false
+
+  /@mui/lab/5.0.0-alpha.97_ejtkogy76axkic3c6ci3kzuscm:
+    resolution: {integrity: sha512-0qIyXcNJg2PftzUjO5nsa9D2LEiyfA+Zg7EpJMZNtkjCTGjJmqw4cp2nJIFlZDzoFb8DsjhlFl3BWAAZqRRgTw==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.5.0
+      '@emotion/styled': ^11.3.0
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+      react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.19.0
+      '@emotion/react': 11.10.4_7sledhp73pnlxlomxbryeeiwka
+      '@emotion/styled': 11.10.4_hs257xuqs5q57pkxvxgqvnn7ie
+      '@mui/base': 5.0.0-alpha.95_zxljzmqdrxwnuenbkrz77w74uy
+      '@mui/material': 5.10.3_pmt7mohamriu6nuiv5xnts3qce
+      '@mui/system': 5.10.3_vwwef2nvz4gdxxvg6n4jd3cdiy
+      '@mui/utils': 5.10.3_react@18.2.0
+      '@types/react': 18.0.17
+      clsx: 1.2.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-is: 18.2.0
     dev: false
 
   /@mui/material/5.10.3_pmt7mohamriu6nuiv5xnts3qce:

@@ -3,14 +3,13 @@ import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import { Fragment } from 'react';
 import Search from '../../components/Search';
-import LoadMore from '../../components/LoadMore';
 import { findCountries } from '../../server/findCountries';
 import { trpc } from '../../utils/trpc';
 import { Country } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { Grid, Box, Typography, Container, Button } from '@mui/material';
 import { CustomCard } from '../../components/update/CustomCard';
-
+import LoadingButton from '@mui/lab/LoadingButton';
 interface Props {
 	initialData: {
 		pages: {
@@ -22,7 +21,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ initialData }) => {
 	const { register, watch, handleSubmit } = useForm();
-	const { data, isFetchingNextPage, fetchNextPage, hasNextPage } = trpc.useInfiniteQuery(
+	const { data, isFetchingNextPage, fetchNextPage, isLoading, hasNextPage } = trpc.useInfiniteQuery(
 		[
 			'infiniteCountries',
 			{
@@ -39,7 +38,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			refetchOnMount: false,
 		}
 	);
-
+	const handleLoading = () => fetchNextPage();
 	return (
 		<Container sx={{ py: 4 }} maxWidth="xl">
 			<Head>
@@ -85,8 +84,11 @@ const Home: NextPage<Props> = ({ initialData }) => {
 					))}
 				</Grid>
 			</Box>
-
-			<LoadMore fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} />
+			<Box sx={{ textAlign: 'center' }}>
+				<LoadingButton disabled={!hasNextPage || isFetchingNextPage} loading={isLoading} onClick={handleLoading}>
+					Loading
+				</LoadingButton>
+			</Box>
 		</Container>
 	);
 };
