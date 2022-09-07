@@ -1,18 +1,18 @@
-import createCache from '@emotion/cache'
+import createCache from '@emotion/cache';
 
-const isBrowser = typeof document !== 'undefined'
+const isBrowser = typeof document !== 'undefined';
 
 const createEmotionCache = () => {
-  let insertionPoint
+  let insertionPoint;
   
   if (isBrowser) {
     const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
       'meta[name="emotion-insertion-point"]',
-    )
-    insertionPoint = emotionInsertionPoint ?? undefined
+    );
+    insertionPoint = emotionInsertionPoint ?? undefined;
   }
 
-  return createCache({ key: 'mui-style', insertionPoint })
-}
+  return createCache({ key: 'mui-style', insertionPoint });
+};
 
-export default createEmotionCache
+export default createEmotionCache;

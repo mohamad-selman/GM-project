@@ -1,10 +1,10 @@
-import { prisma } from './prisma'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from './prisma';
+import { PrismaClient } from '@prisma/client';
 
 interface FindCountries {
-  limit: number
-  cursor?: number | null | undefined
-  where: NonNullable<Parameters<PrismaClient['country']['findMany']>['0']>['where']
+  limit: number;
+  cursor?: number | null | undefined;
+  where: NonNullable<Parameters<PrismaClient['country']['findMany']>['0']>['where'];
 }
 
 export const findCountries = async ({ limit, cursor, where }: FindCountries) => {
@@ -15,16 +15,17 @@ export const findCountries = async ({ limit, cursor, where }: FindCountries) => 
     orderBy: {
       name: 'asc',
     },
-  })
-  let nextCursor: typeof cursor | undefined = undefined
+  });
+
+  let nextCursor: typeof cursor | undefined = undefined;
 
   if (items.length > limit) {
-    const nextItem = items.pop()
-    nextCursor = nextItem!.id
+    const nextItem = items.pop();
+    nextCursor = nextItem!.id;
   }
 
   return {
     items,
     nextCursor,
-  }
-}
+  };
+};

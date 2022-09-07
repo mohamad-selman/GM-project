@@ -1,10 +1,10 @@
-import { UseFormRegister, UseFormHandleSubmit, FieldValues } from 'react-hook-form'
-import {  FormControl, TextField, InputAdornment } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
+import { UseFormRegister, UseFormHandleSubmit, FieldValues } from 'react-hook-form';
+import {  FormControl, TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Props {
-  register: UseFormRegister<FieldValues>,
-  handleSubmit: UseFormHandleSubmit<FieldValues>
+  register: UseFormRegister<FieldValues>;
+  handleSubmit: UseFormHandleSubmit<FieldValues>;
 }
 
 const Search = ({ register, handleSubmit }: Props) => {
@@ -34,6 +34,6 @@ const Search = ({ register, handleSubmit }: Props) => {
       </FormControl>
     </>
   )
-}
+};
 
-export default Search
+export default Search;
